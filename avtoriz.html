@@ -4,16 +4,53 @@
   	<meta charset="UTF-8">
   	<title>Авторизация</title>
   	<link rel="stylesheet" type="text/css" href="style.css">
-  	<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+  	<script src="http://yandex.st/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+    $(document).ready(function(){
+       var boolLg=false;
+       var boolPwd=false;
+       $('#lg').focus(function(){
+          if(boolLg==false){
+              $(this).val('');
+              $(this).css('color','black');
+              boolLg=true;
+         }
+       }); // конец функции focus
+       $('#lg').blur(function(){
+           if($(this).val()=='')
+             $('span.lg_help').css('visibility', 'visible');
+           else if($('span.lg_help').css('visibility')=='visible')
+              $('span.lg_help').css('visibility', 'hidden');
+       }); // конец функции blur
+       $('#psw').focus(function(){
+          $(this).val('');
+          if (boolPwd==false){
+              $(this).css('color','black');
+              $('input[id="psw"]').attr('type','password');
+              boolPwd=true;
+          }
+       }); //конец функции focus
+       $('#psw').blur(function(){
+           if($(this).val()=='')
+              $('span.psw_help').css('visibility','visible');
+           else if($('span.psw_help').css('visibility')=='visible')
+              $('span.psw_help').css('visibility','hidden'); 
+       }) // конец функции blur
+    }); //конец ready
+    </script>
   </head>	
   <body>
   	<form>
   		<h2>Авторизация</h2>
+      <div class="error">
+      </div>  
   		<div class="field">
-  			   <input type="text" id="lg" value="логин">
+  			   <input type="text" id="lg" value="Введите логин">
+           <span class="lg_help">< Введите логин</span>
   		  </div>	
   		  <div class="field">
-  			   <input type="text" id="psw" value="пароль">
+  			   <input type="text" id="psw" value="Введите пароль">
+           <span class="psw_help">< Введите пароль</span>
   		  </div>
   		 <br>
   		 <input type="submit" id="sb" value="Вход в систему">
