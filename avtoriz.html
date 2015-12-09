@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-  	<meta charset="UTF-8">
-  	<title>Авторизация</title>
+    <meta charset="UTF-8">
+	<title>Авторизация</title>
   	<link rel="stylesheet" type="text/css" href="style.css">
-  	<script src="http://yandex.st/jquery/1.9.1/jquery.min.js"></script>
+  	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <script>
     $(document).ready(function(){
        var boolLg=false;
@@ -36,20 +36,35 @@
            else if($('span.psw_help').css('visibility')=='visible')
               $('span.psw_help').css('visibility','hidden'); 
        }) // конец функции blur
+       $('#login').submit(function(){
+           var formData=$(this).serialize();
+           $.post('login.php',formData,processData);
+           function processData(data){
+              if(data ==='pass'){
+                 $('#login').html('<h2>Вход выполнен!</h2>');
+                 $('#login').css('margin-top','200px');
+                }
+              else {
+                $('div.error').html('<p>Неверный логин или пароль!<br>Попробуйте еще раз.</p>');
+                $('div.error').css('visibility','visible');
+               }
+           }// конец processData
+           return false;
+       }); // конец события submit
     }); //конец ready
     </script>
-  </head>	
+  </head>
   <body>
-  	<form>
+	 <form method="get" action="login.php" id="login">
   		<h2>Авторизация</h2>
       <div class="error">
       </div>  
   		<div class="field">
-  			   <input type="text" id="lg" value="Введите логин">
+  			   <input type="text" id="lg" name="username" value="Введите логин">
            <span class="lg_help">< Введите логин</span>
   		  </div>	
   		  <div class="field">
-  			   <input type="text" id="psw" value="Введите пароль">
+  			   <input type="text" id="psw" name="password" value="Введите пароль">
            <span class="psw_help">< Введите пароль</span>
   		  </div>
   		 <br>
