@@ -37,18 +37,21 @@
               $('span.psw_help').css('visibility','hidden'); 
        }) // конец функции blur
        $('#login').submit(function(){
-           var formData=$(this).serialize();
-           $.post('login.php',formData,processData);
-           function processData(data){
-              if(data ==='pass'){
-                 $('#login').html('<h2>Вход выполнен!</h2>');
-                 $('#login').css('margin-top','200px');
-                }
-              else {
-                $('div.error').html('<p>Неверный логин или пароль!<br>Попробуйте еще раз.</p>');
-                $('div.error').css('visibility','visible');
-               }
-           }// конец processData
+        // проверяем введены ли данные в поля
+         if($('#lg').val()!=""&&$('#psw').val()!=""){
+             var formData=$(this).serialize();
+             $.post('login.php',formData,processData);
+             function processData(data){
+                if(data ==='pass'){
+                   $('#login').html('<h2>Вход выполнен!</h2>');
+                   $('#login').css('margin-top','200px');
+                  }
+                else {
+                  $('div.error').html('<p>Неверный логин или пароль!<br>Попробуйте еще раз.</p>');
+                  $('div.error').css('visibility','visible');
+                 }
+             }// конец processData
+          }  
            return false;
        }); // конец события submit
     }); //конец ready
